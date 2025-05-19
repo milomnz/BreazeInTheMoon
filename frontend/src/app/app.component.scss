@@ -1,0 +1,36 @@
+$principal-font: "Tinos", serif;
+$principal-font-color: #504B38;
+
+.main-image {
+    width: 100%;
+    height: 400px; 
+    object-fit: cover; 
+}
+
+@media (max-width: 768px) {
+  img.main-image {
+    max-width: 100%;
+    min-width: 100px;
+  }
+}
+
+.inicial-text {
+  font-family: $principal-font;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 50px;
+  color: $principal-font-color;
+  justify-content: right;
+  margin-left: 25px;
+  margin-top: 65px;
+}
+.firma {
+  font-family: $principal-font;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 25px;
+  color: $principal-font-color;
+  justify-content: right;
+  margin-left: 25px;
+  //margin-top: 65px;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: Event): void {
     // Log para depuración
-    console.log('Scroll detectado, posición Y:', window.scrollY);
     this.updateNavbarState();
   }
 
@@ -51,16 +50,13 @@ export class NavbarComponent implements OnInit {
     }
     
     const isScrolledNow = window.scrollY > this.scrollThreshold;
-    console.log('Estado de scroll:', isScrolledNow, 'Threshold:', this.scrollThreshold);
     
     // Aplicar la clase siempre, no solo cuando cambia el estado
     this.isScrolled = isScrolledNow;
     
     if (this.isScrolled) {
-      console.log('Aplicando clase scrolled');
       this.renderer.addClass(navbar, 'scrolled');
     } else {
-      console.log('Removiendo clase scrolled');
       this.renderer.removeClass(navbar, 'scrolled');
     }
   }

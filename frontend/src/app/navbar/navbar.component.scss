@@ -1,42 +1,59 @@
+$principal-font: "Tinos", serif;
+$principal-font-color: #504B38;
+
 #navbar {
-    font-family: "Tinos", serif;
-    color: white;
-    font-weight: 400;
-    font-style: italic;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.5s;
-    z-index: 1000;
-    background-color: transparent !important;
+  font-family: $principal-font;
+  font-weight: 400;
+  font-style: italic;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s;
+  z-index: 1000;
+  background-color: transparent !important;
 }
 
-/* Estilo explícito cuando se aplica .scrolled con mayor especificidad */
-html body #navbar.scrolled,
-body #navbar.navbar.scrolled,
-#navbar.navbar.bg-body-tertiary.scrolled {
-    background-color: #2c3e50 !important; /* !important para asegurar que sobreescriba cualquier otro estilo */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
-    padding: 15px 40px !important;
+#navbar  .navbar-brand {
+  color: #ffffff !important;
 }
 
-/* Corrigiendo selector para usar id en lugar de clase */
+/* Cuando el navbar tiene la clase .scrolled */
+#navbar.scrolled,
+#navbar.navbar.scrolled,
+#navbar.bg-body-tertiary.scrolled {
+  background-color: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  padding: 15px 40px !important;
+}
+
+/* Menú dentro del navbar */
 #navbar #menu {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
-#navbar .menu a:hover, #navbar #menu a:hover {
-    color: #3498db !important;
+/* Estilo de los links */
+#navbar #menu .nav-link {
+  color: #ffffff ;
+  transition: color 0.3s ease;
 }
 
-/* Asegurando que los enlaces sean visibles en ambos estados */
-#navbar.scrolled .navbar-brand,
+#navbar #menu .nav-link:hover {
+  color: #000000 !important;
+}
+
+
+
+/* Estilo cuando el navbar está scrolleado */
+#navbar.scrolled .navbar-brand {
+  color: $principal-font-color !important;
+}
+
 #navbar.scrolled .nav-link {
-    color: white !important;
+  color: $principal-font-color !important;
 }
