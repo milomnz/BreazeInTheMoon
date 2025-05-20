@@ -27,8 +27,9 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASS=root
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+      - DB_NAME=reserva-hoteles
     depends_on:
       - db
 

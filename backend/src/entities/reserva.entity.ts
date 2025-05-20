@@ -4,44 +4,51 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToOne,
-  JoinColumn
 } from 'typeorm';
 import { Cliente } from './cliente.entity';
 import { Habitacion } from './habitacion.entity';
-import { Promocion } from './promocion.entity';
+import { EstadoReserva } from 'src/constants/estado-reserva.enum';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Reserva {
   @PrimaryGeneratedColumn()
+  @ApiProperty({ example: 1, description: 'ID único de la reserva' })
   id: number;
 
-  @ManyToOne(() => Cliente, (cliente) => cliente.reservas)
+  @ManyToOne(() => Cliente, cliente => cliente.reservas)
+  @ApiProperty({ type: () => Cliente, description: 'Cliente que realizó la reserva' })
   cliente: Cliente;
 
-  @ManyToOne(() => Habitacion, (habitacion) => habitacion.reservas)
+  @ManyToOne(() => Habitacion, habitacion => habitacion.reservas)
+  @ApiProperty({ type: () => Habitacion, description: 'Habitación reservada' })
   habitacion: Habitacion;
 
   @Column()
-  fechaEntrada: Date;
+  @ApiProperty({ example: '2025-06-01', description: 'Fecha de inicio de la reserva (más conocido como check-in)' })
+  fechaInicio: Date;
 
   @Column()
-  fechaSalida: Date;
-
-  @Column('double')
-  montoTotal: number;
+  @ApiProperty({ example: '2025-06-05', description: 'Fecha de fin de la reserva (más conocido como check-out)' })
+  fechaFin: Date;
 
   @Column()
-  estado: string; // Puede ser 'PENDIENTE', 'RECHAZADA', 'CANCELADA', 'COMPLETADA'
+  @ApiProperty({ example: 4, description: 'Número de noches de la reserva' })
+  numeroNoches: number;
 
-  @CreateDateColumn()
+  @Column('float')
+  @ApiProperty({ example: 480.00, description: 'Costo total de la reserva' })
+  costoTotal: number;
+
+  @Column()
+  @ApiProperty({ example: '2025-05-20T14:30:00.000Z', description: 'Fecha en que se creó la reserva' })
   fechaCreacion: Date;
 
-  @UpdateDateColumn()
-  fechaActualizacion: Date;
-
-  @ManyToOne(() => Promocion, { nullable: true })
-  promocionAplicada: Promocion;
+  @Column({
+    type: 'enum',
+    enum: EstadoReserva,
+    default: EstadoReserva.PENDIENTE
+  })
+  @ApiProperty({ enum: EstadoReserva, example: EstadoReserva.PENDIENTE, description: 'Estado actual de la reserva' })
+  estado: EstadoReserva;
 }

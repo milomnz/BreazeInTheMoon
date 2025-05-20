@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cliente } from 'src/entities/cliente.entity';
@@ -11,26 +11,31 @@ export class ClienteService {
   constructor(
     @InjectRepository(Cliente)
     private clienteRepository: Repository<Cliente>,
-  ) {}
+  ) { }
 
-  create(dto: CreateClienteDto) {
+  async create(dto: CreateClienteDto): Promise<Cliente> {
     const cliente = this.clienteRepository.create(dto);
     return this.clienteRepository.save(cliente);
   }
 
-  findAll() {
+  async findAll(): Promise<Cliente[]> {
     return this.clienteRepository.find();
   }
 
-  findOne(id: number) {
-    return this.clienteRepository.findOne({ where: { id } });
+  async findOne(id: number): Promise<Cliente> {
+    const cliente = await this.clienteRepository.findOne({ where: { id } });
+    if (!cliente) throw new NotFoundException(`Cliente con ID ${id} no encontrado`);
+    return cliente;
   }
 
-  update(id: number, dto: UpdateClienteDto) {
-    return this.clienteRepository.update(id, dto);
+  async update(id: number, dto: UpdateClienteDto): Promise<Cliente> {
+    const cliente = await this.findOne(id);
+    Object.assign(cliente, dto);
+    return this.clienteRepository.save(cliente);
   }
 
-  remove(id: number) {
-    return this.clienteRepository.delete(id);
+  async remove(id: number): Promise<void> {
+    await this.findOne(id);
+    await this.clienteRepository.delete(id);
   }
 }
