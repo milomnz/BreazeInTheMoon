@@ -1,0 +1,7 @@
+/* eslint-disable prettier/prettier */
+export enum TipoNotificacion {
+    CONFIRMACION_RESERVA = 'CONFIRMACION_RESERVA',
+    RECHAZO_RESERVA = 'RECHAZO_RESERVA',
+    RESERVA_PUBLICADA = 'RESERVA_PUBLICADA',
+    ALERTA_PROMOCION = 'ALERTA_PROMOCION'
+}

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 export interface JwtPayload {
-  sub: number;
+  userId: number;
   correo: string;
+  rol: string;
 }

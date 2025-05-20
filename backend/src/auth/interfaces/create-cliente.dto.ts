@@ -1,10 +1,4 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsEmail } from 'class-validator';
+import { CreateUsuarioDto } from './create-usuario.dto';
 
-export class CreateClienteDto {
-  @IsString()
-  nombre: string;
-
-  @IsEmail()
-  email: string;
-}
+export class CreateClienteDto extends CreateUsuarioDto {}
