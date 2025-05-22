@@ -3,41 +3,33 @@
     dinámicamente. -->
 
 <div class="booking-tool">
-    <div class="booking-labels">
-        <div class="label">Hotel</div>
-        <div class="label">Fecha</div>
-        <div class="label">Habitación</div>
+  <div class="booking-dropdowns">
+    <div class="dropdown-wrapper">
+      <label for="hotel-select">Hotel</label>
+      <div class="dropdown-container">
+        <select id="hotel-select" class="dropdown-btn" (change)="onHotelChange($event)">
+          <option value="" disabled selected>{{ hotelSeleccionadoNombre || 'Selecciona tu hotel favorito' }}</option>
+          <option *ngFor="let hotel of hoteles" [value]="hotel.id">
+            {{ hotel.nombre }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <div class="booking-dropdowns">
-        <div class="dropdown-container">
-            <button class="dropdown-btn">Selecciona tu hotel favorito</button>
-            <div class="dropdown-content">
-                <a href="#">Barú</a>
-                <a href="#">Galeón</a>
-                <a href="#">Isleño</a>
-            </div>
-        </div>
-
-        <div class="dropdown-container">
-            <button class="dropdown-btn">Entrada - Salida</button>
-            <div class="dropdown-content">
-                <a href="#">Mayo 20 - Mayo 25</a>
-                <a href="#">Junio 1 - Junio 7</a>
-                <a href="#">Julio 15 - Julio 22</a>
-            </div>
-        </div>
-
-        <div class="dropdown-container">
-            <button class="dropdown-btn">2 Personas</button>
-            <div class="dropdown-content">
-                <a href="#">1 Persona</a>
-                <a href="#">2 Personas</a>
-                <a href="#">3 Personas</a>
-                <a href="#">4 Personas</a>
-            </div>
-        </div>
-
-        <button class="reserve-btn">Reservar</button>
+    <div class="dropdown-wrapper">
+      <label for="date-picker">Fecha</label>
+      <div class="dropdown-container">
+        <app-datepicker class="dropdown-btn" id="date-picker"></app-datepicker>
+      </div>
     </div>
+
+    <div class="dropdown-wrapper">
+      <label for="guests-input">Habitación</label>
+      <div class="dropdown-container">
+        <input type="text" class="dropdown-btn" placeholder="Número de huéspedes" id="guests-input">
+      </div>
+    </div>
+
+    <button class="reserve-btn">Reservar</button>
+  </div>
 </div>

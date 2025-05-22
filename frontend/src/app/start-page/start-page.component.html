@@ -1,0 +1,18 @@
+<section class="header"> <!-- Encabezado de la pagina. Componentes navbar, y buscador.-->
+    <app-navbar></app-navbar>
+    <img src="assets/images/isleno-xl-002.jpg" alt="principal-image" class="main-image">
+    <app-busqueda></app-busqueda>
+</section>
+<!---->
+<main class="main">
+    <section class="login-span">
+    <a routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"><img src="../assets/images/cuenta.png" id="login-image"></a>
+    </section>
+    <section class="inicial-text">
+        <p>Descubre por qué nuestros hoteles son tú mejor opcion para tus proximas vacaciones.</p>
+    </section>
+    <p class="firma">- "Breaze In The Mooon"...</p>
+</main>
+
+<!-- Enrutador de la pagina -->
+<router-outlet></router-outlet>

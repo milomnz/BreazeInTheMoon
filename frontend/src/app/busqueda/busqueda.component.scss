@@ -5,19 +5,6 @@ $accent-color: #4A5E40;
 $white: #ffffff;
 $light-blue: #53A5D5;
 
-.banner {
-  position: relative;
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
-}
-
-.banner-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .top-nav {
   position: absolute;
   top: 0;
@@ -43,57 +30,85 @@ $light-blue: #53A5D5;
 
 /* Herramienta de reserva */
 .booking-tool {
+  font-family: $primary-font;
   position: absolute;
-  top: 170px;
+  top: 267px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   max-width: 1200px;
   z-index: 20;
-}
-
-.booking-labels {
-  display: flex;
-  justify-content: space-around;
-  color: $white;
-  width: 75%;
-  margin: 0 auto;
-  padding-bottom: 10px;
-}
-
-.label {
-  flex: 1;
-  text-align: center;
-  font-weight: 600;
+  background-color: rgba(94, 94, 94, 0.4); /* Gris translúcido */
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  padding: 20px; /* Añadido para dar espacio alrededor de los elementos */
 }
 
 .booking-dropdowns {
   display: flex;
-  background-color: $white;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px $shadow-color;
-  padding: 15px;
-  align-items: center;
+  flex-wrap: wrap; /* Añadido para responsive */
+  /* background-color: rgba(255, 255, 255, 0.2); // Removido, el background principal cubre esto */
+  border-radius: 8px;
+  /* box-shadow: 0 5px 15px $shadow-color; // Puede ser removido si el shadow del padre es suficiente */
+  padding: 0; /* Removido el padding aquí ya que se añadió al .booking-tool */
+  align-items: flex-end; /* Alinea los elementos al final (parte inferior) */
+  gap: 15px; /* Espaciado consistente entre elementos */
+  justify-content: space-between; /* Distribuye el espacio entre los elementos */
+}
+
+.dropdown-wrapper {
+  flex: 1;
+  min-width: 200px; /* Ancho mínimo para responsive */
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Espacio entre el label y el campo */
+}
+
+.dropdown-wrapper label {
+  color: $white; /* Color del texto del label */
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Sombra para que se vea mejor sobre el fondo */
 }
 
 .dropdown-container {
-  flex: 1;
-  margin-right: 10px;
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
   position: relative;
+}
+
+/* Estilo para garantizar que todos los contenedores tengan la misma altura */
+::ng-deep app-datepicker {
+  width: 100%;
+  display: block;
+  
+  .dropdown-btn {
+    height: 50px; /* Altura más alta para todos los controles */
+    padding: 12px 15px; /* Ajusta el padding para centrar el texto verticalmente */
+  }
 }
 
 .dropdown-btn {
   width: 100%;
-  padding: 10px;
-  background-color: $white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  height: 50px; /* Altura más alta para consistencia */
+  padding: 12px 15px; /* Ajusta el padding para centrar el texto verticalmente */
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
   text-align: left;
   cursor: pointer;
   font-family: $primary-font;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-size: 1rem; /* Asegura un tamaño de fuente legible */
+  
+  &:hover, &:focus {
+    border-color: $accent-color;
+    box-shadow: 0 0 0 2px rgba($accent-color, 0.2);
+    outline: none;
+  }
 }
 
 .dropdown-icon {
@@ -116,9 +131,9 @@ $light-blue: #53A5D5;
   width: 100%;
   box-shadow: 0 5px 15px $shadow-color;
   z-index: 30;
-  border-radius: 4px;
-  margin-top: 2px;
-  max-height: 200px;
+  border-radius: 6px;
+  margin-top: 5px;
+  max-height: 250px;
   overflow-y: auto;
   
   &.show {
@@ -127,24 +142,70 @@ $light-blue: #53A5D5;
 }
 
 .dropdown-content a {
-  color: black;
+  color: $primary-color;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  transition: background-color 0.2s ease;
   
   &:hover {
-    background-color: #f1f1f1;
+    background-color: rgba($accent-color, 0.1);
   }
 }
 
 .reserve-btn {
-  padding: 10px 20px;
+  padding: 15px 30px; /* Aumenta el padding para hacerlo más grande */
   background-color: $accent-color;
   color: $white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
   font-family: $primary-font;
-  min-width: 100px;
+  min-width: 150px; /* Aumenta el ancho mínimo */
+  height: 60px; /* Hace el botón más alto que los campos de entrada */
+  transition: background-color 0.3s ease;
+  font-size: 1.2rem; /* Hace el texto del botón más grande */
+  align-self: flex-end; /* Alinea el botón a la parte inferior en flexbox */
+  
+  &:hover {
+    background-color: darken($accent-color, 10%);
+  }
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .booking-dropdowns {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px; /* Ajusta el espacio entre elementos en dispositivos pequeños */
+  }
+  
+  .dropdown-wrapper {
+    width: 100%;
+    margin-bottom: 0; /* Elimina el margen inferior que ya se maneja con gap */
+  }
+
+  .reserve-btn {
+    width: 100%;
+    margin-top: 12px; /* Añade un poco de margen superior */
+    height: 50px; /* Ajusta la altura para móviles si es necesario */
+    padding: 12px 20px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Ajustes para tabletas y tamaños intermedios (opcional) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .booking-dropdowns {
+    justify-content: center; /* Centra los elementos */
+  }
+  .dropdown-wrapper {
+    flex: unset; /* Deshabilita el flex grow para que no se estiren tanto */
+    width: calc(33.33% - 15px); /* Por ejemplo, 3 elementos por fila */
+  }
+  .reserve-btn {
+    flex: unset;
+    width: auto; /* Permite que el botón tome su ancho natural */
+  }
 }
