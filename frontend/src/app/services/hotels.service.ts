@@ -8,7 +8,7 @@ import { Hotel} from '../models/hotel.model';
   providedIn: 'root'
 })
 export class HotelsService {
-  private apiUrl = 'http://localhost:3000/hotels'; // URL de la API
+  private apiUrl = 'http://localhost:3000/hoteles'; // URL de la API
   constructor(private http: HttpClient) { }
   getHotels(): Observable<Hotel[]> {
     return this.http.get<Hotel[]>(this.apiUrl)

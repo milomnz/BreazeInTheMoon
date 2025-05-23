@@ -1,0 +1,165 @@
+$color-dark-text: #504B38;
+$color-light-gray: #dadada;
+$color-white: #ffffff;
+$color-form-bg: #b9b28a3f;
+/* #dadada con transparencia */
+
+/* Variables de Fuente */
+$font-tinos: "Tinos", serif;
+
+/* Espaciado Básico */
+$spacing-sm: 10px;
+$spacing-md: 20px;
+$spacing-lg: 40px;
+
+
+.login {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-family: $font-tinos;
+    background-color: rgba(255, 255, 255, 0.075);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: 400;
+    font-style: italic;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 100%;
+    padding: $spacing-md $spacing-lg;
+    /* Usando variables */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.5s;
+    z-index: 1000;
+    /* Z-index alto para estar siempre encima */
+    background-color: transparent;
+    /* Eliminado !important */
+    color: $color-dark-text;
+    /* Color para el título si el fondo es oscuro */
+}
+
+
+
+.login-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    /* Centrar contenido horizontalmente */
+    align-items: center;
+    /* Centrar contenido verticalmente */
+    flex-direction: column;
+    background-color: $color-form-bg;
+    /* Fondo con transparencia */
+    width: 500px;
+    max-width: 90%;
+    /* Para responsividad: máximo 90% del ancho de la pantalla */
+    height: 500px;
+    /* Considera 'min-height' o 'height: auto' para flexibilidad */
+    max-height: 90vh;
+    /* Para responsividad */
+    top: 50%;
+    /* Centrado */
+    left: 50%;
+    /* Centrado */
+    transform: translate(-50%, -50%);
+    /* Centrado perfecto */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Sombra para profundidad */
+    padding: 60px;
+    /* Espaciado interno */
+    z-index: 10;
+    /* Un z-index mayor que el .login pero menor que el .title */
+
+    /* Efecto de desenfoque */
+    backdrop-filter: blur(15px);
+    /* Un valor de blur más notorio, ajusta a tu gusto */
+    -webkit-backdrop-filter: blur(15px);
+    /* Compatibilidad */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Borde sutil para el efecto de cristal */
+}
+
+/* Estilos para el formulario y sus elementos */
+.login-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    /* Espacio entre los elementos del formulario */
+}
+.login-container p {
+    font-size: 30px;
+    color: $color-dark-text;
+}
+
+.login-container label {
+    margin-bottom: 5px;
+    /* Espacio entre label y input */
+    font-weight: bold;
+    color: $color-dark-text;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: $spacing-sm;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo del input semitransparente */
+}
+
+.login-container button[type="submit"] {
+    padding: $spacing-sm $spacing-md;
+    background-color: $color-dark-text;
+    color: $color-white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: $spacing-md;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button[type="submit"]:hover:not([disabled]) {
+    background-color: #3a362a;
+    /* Un color un poco más oscuro al pasar el mouse */
+}
+
+.login-container button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.login-container a{
+    text-decoration: underline;
+}
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .title {
+        font-size: 40px;
+        padding: $spacing-md $spacing-md;
+    }
+
+    .login-container {
+        width: 95%;
+        max-width: none;
+        height: auto;
+        max-height: 95vh;
+        padding: $spacing-md;
+    }
+
+    .login-container form {
+        gap: $spacing-sm;
+    }
+}
