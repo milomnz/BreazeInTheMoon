@@ -1,10 +1,10 @@
 <div class="login">
-    <h1 class="title">Breaze In The Moon</h1> 
+    <a routerLink="/StartPage"><h1 class="title">Breaze In The Moon</h1></a>
     <div class="login-container">
         <p>Iniciar Sesión</p>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="form-group"> <label for="username">Correo Electronico:</label>
-                <input type="text" id="username" name="username" formControlName="username" required>
+            <div class="form-group"> <label for="correo">Correo Electronico:</label>
+                <input type="text" id="correo" name="correo" formControlName="correo" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -15,5 +15,5 @@
                 <label>¿No tienes cuenta? <a routerLink="/register">Registrarse</a></label>
             </div>
         </form>
-
 </div>
+<router-outlet></router-outlet>

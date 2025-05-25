@@ -11,12 +11,6 @@ export class CreateUsuarioDto {
   @IsString()
   nombre: string;
 
-  @ApiProperty({
-    description: 'Apellido del usuario',
-    example: 'Herrera',
-  })
-  @IsString()
-  apellido: string;
 
   @ApiProperty({
     description: 'Teléfono de contacto',
@@ -33,11 +27,11 @@ export class CreateUsuarioDto {
   correo: string;
 
   @ApiProperty({
-    description: 'Contraseña (encriptada) del usuario',
-    example: 'PyLesQ5TkXhuh5URwU0T5u/2MLwP9JUdg10LVszBmcjQSdMc7PF20Kjsljn7wylr',
+    description: 'Contraseña SIN ENCTR\IPTAR',
+    example: 'contraseñaSegura123',
   })
   @IsString()
-  contrasenaEncriptada: string;
+  contrasena: string;
 
   @ApiProperty({
     description: 'Rol asignado al usuario (ADMIN, CLIENTE)',

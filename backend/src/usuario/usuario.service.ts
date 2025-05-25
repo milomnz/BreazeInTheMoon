@@ -16,8 +16,8 @@ export class UsuarioService {
 
   async create(dto: CreateUsuarioDto): Promise<Usuario> {
     const nuevoUsuario = this.usuarioRepository.create(dto);
-    const saltRounds = 10;
-    nuevoUsuario.contrasenaEncriptada = await bcrypt.hash(dto.contrasenaEncriptada, saltRounds);
+    nuevoUsuario.contrasenaEncriptada = dto.contrasena; 
+    
     return this.usuarioRepository.save(nuevoUsuario);
   }
 

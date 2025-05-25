@@ -9,11 +9,6 @@ export class UpdateUsuarioDto {
   @IsString()
   nombre?: string;
 
-  @ApiPropertyOptional({ example: 'Herrera', description: 'Apellido del usuario' })
-  @IsOptional()
-  @IsString()
-  apellido?: string;
-
   @ApiPropertyOptional({ example: '+5715512345678', description: 'Teléfono de contacto' })
   @IsOptional()
   @IsString()

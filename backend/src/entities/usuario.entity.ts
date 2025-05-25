@@ -17,10 +17,6 @@ export class Usuario {
   nombre: string;
 
   @Column()
-  @ApiProperty({ example: 'Pérez', description: 'Apellido del usuario' })
-  apellido: string;
-
-  @Column()
   @ApiProperty({ example: '+573001112233', description: 'Número de teléfono del usuario' })
   telefono: string;
 
