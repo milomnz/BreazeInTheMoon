@@ -3,12 +3,11 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { UsuarioService } from '../usuario/usuario.service'; // <<-- ¡IMPORTANTE! Asegúrate de que la ruta sea correcta.
-import { ConfigService } from '@nestjs/config'; // <<-- Para leer el JWT_SECRET de forma segura.
+import { UsuarioService } from '../usuario/usuario.service'; 
+import { ConfigService } from '@nestjs/config'; 
 
 @Injectable()
-export // Extiende PassportStrategy con la Strategy de passport-jwt y le da el nombre 'jwt'.
-// Este nombre ('jwt') es el que usarás en @UseGuards(AuthGuard('jwt')).
+export 
 class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
     // Inyecta UsuarioService para poder buscar al usuario en la base de datos.
@@ -43,19 +42,15 @@ class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
    * @throws UnauthorizedException si el usuario no es encontrado o el token es inválido.
    */
   async validate(payload: JwtPayload) {
-    // Usa el ID del usuario del payload del JWT para buscar al usuario en la base de datos.
-    // Asumimos que 'payload.userId' contiene el ID del usuario.
     const user = await this.usersService.findOne(payload.userId);
 
-    // Si el usuario no es encontrado en la base de datos, significa que el token es inválido
-    // (quizás el usuario fue eliminado después de que se emitió el token).
     if (!user) {
       throw new UnauthorizedException('Token inválido o usuario no encontrado.');
     }
 
     // Si el usuario es encontrado, se devuelve. NestJS lo adjuntará a `req.user`
     // en cualquier ruta protegida con `@UseGuards(AuthGuard('jwt'))`.
-    // Esto permite acceder a `req.user.id`, `req.user.correo`, etc., en tus controladores.
+    // Esto permite acceder a `req.user.id`, `req.user.correo`, etc., en los controladores.
     return user;
   }
 }

@@ -1,45 +1,40 @@
 import { Component, OnInit, HostListener, Renderer2, ElementRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { AboutComponent } from '../about/about.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AboutComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 
 export class NavbarComponent implements OnInit {
-  // Flag to track if we've scrolled past the threshold
+
   isScrolled = false;
   
-  // Default threshold value for scroll detection
+  
   scrollThreshold: number = 50;
   
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
-    // Initialize navbar state when component loads
+    
     this.updateNavbarState();
     
     // Log para depuración
     console.log('NavbarComponent inicializado');
   }
 
-  /**
-   * Angular's @HostListener decorator captures scroll events
-   * on the window without manually adding/removing event listeners
-   */
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(event: Event): void {
     // Log para depuración
     this.updateNavbarState();
   }
 
-  /**
-   * Updates the navbar visual state based on scroll position
-   */
+
   private updateNavbarState(): void {
     // Usar document.getElementById como alternativa más robusta
     const navbar = document.getElementById('navbar');
@@ -61,10 +56,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  /**
-   * Public method to dynamically change the scroll threshold
-   * @param newThreshold - New threshold value in pixels
-   */
+
   public setScrollThreshold(newThreshold: number): void {
     this.scrollThreshold = newThreshold;
     this.updateNavbarState();

@@ -35,9 +35,9 @@ export class UsuarioService {
     const usuario = await this.usuarioRepository.findOne({ where: { id } });
     if (!usuario) throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
 
-    if (dto.contrasenaEncriptada) {
+    if (dto.contrasena) {
       const saltRounds = 10;
-      dto.contrasenaEncriptada = await bcrypt.hash(dto.contrasenaEncriptada, saltRounds);
+      dto.contrasena = await bcrypt.hash(dto.contrasena, saltRounds);
     }
     Object.assign(usuario, dto);
     return this.usuarioRepository.save(usuario);

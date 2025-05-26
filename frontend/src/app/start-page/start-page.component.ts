@@ -4,6 +4,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { BusquedaComponent } from '../busqueda/busqueda.component';
 import { DateRangePickerComponent } from '../date-range-picker/date-range-picker.component';
 import { LoginComponent } from '../login/login.component';
+import { FooterComponent } from '../footer/footer.component';
 import { AuthService } from '../services/auth/auth.service'; 
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common'; 
@@ -21,7 +22,8 @@ import { ReviewStartComponent } from '../review-start/review-start.component';
     LoginComponent,
     CommonModule,
     CardsComponent,
-    ReviewStartComponent
+    ReviewStartComponent,
+    FooterComponent
   ],
   standalone: true,
   templateUrl: './start-page.component.html',

@@ -1,13 +1,13 @@
-// Definición de variables (puedes ajustar estos colores y fuentes a tu tema)
-$font-primary: 'Arial', sans-serif; // O tu fuente principal
-$font-secondary: 'Georgia', serif; // O tu fuente para descripciones
+
+$font-primary: 'Arial', sans-serif; 
+$font-secondary: 'Georgia', serif; 
 $color-text: #333;
 $color-dark-text: #1a1a1a;
-$color-star-filled: gold; // O un color amarillo/naranja vibrante
+$color-star-filled: gold;
 $color-star-empty: #ccc;
 $color-bg-card: #fff;
 $color-border-card: #e0e0e0;
-$spacing-unit: 1rem; // Unidad base para espaciado, 16px por defecto
+$spacing-unit: 1rem; 
 
 .review-container {
     display: flex;
@@ -24,58 +24,58 @@ $spacing-unit: 1rem; // Unidad base para espaciado, 16px por defecto
     background-color: $color-bg-card;
     border: 1px solid $color-border-card;
     border-radius: 8px;
-    padding: $spacing-unit * 1.5; // 24px de padding
+    padding: $spacing-unit * 1.5; 
     margin-bottom: $spacing-unit * 1.5; // Espacio entre tarjetas si hay varias
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: space-between; 
+    justify-content: center; 
     max-width: 400px; 
     width: 100%; 
     box-sizing: border-box; // Asegura que padding y border se incluyan en el ancho/alto
     font-family: $font-primary;
     color: $color-text;
 
-    // Estilos para la sección de encabezado (calificación y descripción)
+
     .review-header {
-        margin-bottom: $spacing-unit; // Espacio entre el header y el footer
+        margin-bottom: $spacing-unit;
     }
 
-    // Estilos para la calificación de estrellas
+    
     .review-rating {
-        display: flex; // Para que las estrellas estén en línea
-        margin-bottom: $spacing-unit * 0.75; // Espacio entre estrellas y descripción
-        line-height: 1; // Ajusta la altura de línea para las estrellas
+        display: flex; 
+        margin-bottom: $spacing-unit * 0.75; 
+        line-height: 1; 
 
         .star {
-            font-size: $spacing-unit * 1.5; // Tamaño de las estrellas (24px)
+            font-size: $spacing-unit * 1.5; 
             color: $color-star-empty;
-            margin-right: $spacing-unit * 0.2; // Pequeño espacio entre estrellas
+            margin-right: $spacing-unit * 0.2; 
 
-            // Usamos un ícono de estrella unicode o puedes usar Font Awesome/SVG
+            
             &::before {
-                content: '\2605'; // Carácter unicode de una estrella sólida
+                content: '\2605'; 
             }
 
             &.filled {
-                color: $color-star-filled; // Estrellas con color de relleno
+                color: $color-star-filled; 
             }
         }
     }
 
     .review-description {
         font-family: $font-secondary;
-        font-style: italic; // Para un toque más de "reseña"
-        font-size: $spacing-unit * 1.1; // 17.6px
+        font-style: italic; 
+        font-size: $spacing-unit * 1.1; 
         line-height: 1.6;
-        margin: 0; // Elimina el margen por defecto del párrafo
+        margin: 0; 
     }
 
-    // Estilos para el pie de página (nombre del hotel)
+
     .review-footer {
-        text-align: right; // Nombre del hotel alineado a la derecha
+        text-align: right; 
         padding-top: $spacing-unit * 0.75; // Espacio superior del footer
-        border-top: 1px dashed $color-border-card; // Línea divisoria sutil
-        margin-top: auto; // Empuja el footer hacia la parte inferior si la descripción es corta
+        border-top: 1px dashed $color-border-card; 
+        margin-top: auto; 
     }
 
     .review-hotel-name {
@@ -86,28 +86,28 @@ $spacing-unit: 1rem; // Unidad base para espaciado, 16px por defecto
     }
 }
 
-// Contenedor para múltiples reseñas si quieres mostrarlas en un grid/fila
+
 .reviews-container {
     display: flex;
-    flex-wrap: wrap; // Permite que las tarjetas salten a la siguiente línea
-    gap: $spacing-unit * 2; // Espacio de 32px entre las tarjetas
-    justify-content: center; // Centra las tarjetas horizontalmente
-    padding: $spacing-unit * 2; // Padding alrededor del contenedor
-    max-width: 1300px; // Ancho máximo del contenedor para centrar
-    margin: 0 auto; // Centra el contenedor en la página
+    flex-wrap: wrap; 
+    gap: $spacing-unit * 2; 
+    justify-content: center; 
+    padding: $spacing-unit * 2; 
+    max-width: 1300px; 
+    margin: 0 auto; 
     box-sizing: border-box;
 }
 
-// Media queries para responsividad
+// Media queries para responsivida
 @media (max-width: 768px) {
     .review-card {
-        padding: $spacing-unit; // Reduce el padding en pantallas medianas
-        max-width: 350px; // Ajusta el max-width si es necesario
+        padding: $spacing-unit; 
+        max-width: 350px; 
     }
 
     .reviews-container {
-        gap: $spacing-unit * 1.5; // Reduce el gap
-        padding: $spacing-unit * 1.5; // Reduce el padding
+        gap: $spacing-unit * 1.5; 
+        padding: $spacing-unit * 1.5; 
     }
 
     .review-rating .star {

@@ -8,6 +8,8 @@ import { StartPageComponent } from './start-page/start-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CardsComponent } from './cards/cards.component';
 import { ReviewStartComponent } from './review-start/review-start.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
 export const routes: Routes = [
      { path: '', redirectTo: 'StartPage', pathMatch: 'full' },
      { path : 'StartPage', component: StartPageComponent },
@@ -15,8 +17,10 @@ export const routes: Routes = [
      { path: 'register', component: RegisterComponent },
      { path: 'navbar', component: NavbarComponent },
      { path: 'busqueda', component: BusquedaComponent},
-     {path: 'date-picker', component: DateRangePickerComponent },
-     {path: 'profile', component: ProfileComponent },
-     {path : 'cards', component: CardsComponent },
-     {path: 'review-start', component: ReviewStartComponent}
+     { path: 'date-picker', component: DateRangePickerComponent },
+     { path: 'profile', component: ProfileComponent },
+     { path : 'cards', component: CardsComponent },
+     { path: 'review-start', component: ReviewStartComponent},
+     { path: 'footer', component: FooterComponent },
+     {path: 'about', component: AboutComponent}
 ];

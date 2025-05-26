@@ -1,0 +1,22 @@
+$color-dark-text: #504B38;
+$color-light-gray: #dadada;
+$color-white: #ffffff;
+$color-form-bg: #b9b28a3f;
+/* #dadada con transparencia */
+
+/* Variables de Fuente */
+$font-tinos: "Tinos", serif;
+
+/* Espaciado Básico */
+$spacing-sm: 10px;
+$spacing-md: 20px;
+$spacing-lg: 40px;
+
+
+
+
+.main-image{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}

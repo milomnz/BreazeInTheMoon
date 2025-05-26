@@ -1,0 +1,191 @@
+.about-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 50px;
+  background-color: #f8f9fa;
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section h1 {
+  font-size: 2.8em;
+  color: #000000;
+  margin-bottom: 15px;
+}
+
+.hero-section p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mission-vision-section {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.mission, .vision {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #28a745; /* Misión */
+}
+
+.vision {
+  border-left: 5px solid #ffc107; /* Visión */
+}
+
+.mission h2, .vision h2 {
+  font-size: 2em;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+.mission p, .vision p {
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+.team-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.team-section h2 {
+  font-size: 2.5em;
+  color: #007bff;
+  margin-bottom: 40px;
+}
+
+.team-members {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.member {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  text-align: center;
+}
+
+.member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 4px solid #ddd;
+}
+
+.member h3 {
+  font-size: 1.8em;
+  color: #343a40;
+  margin-bottom: 5px;
+}
+
+.member p {
+  color: #6c757d;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.member .bio {
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #555;
+}
+
+.contact-cta {
+  text-align: center;
+  background-color: #e9ecef;
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.contact-cta h2 {
+  font-size: 2.2em;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+.contact-cta p {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+}
+
+.btn-contact {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.btn-contact:hover {
+  background-color: #0056b3;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2em;
+  }
+
+  .hero-section p {
+    font-size: 1em;
+  }
+
+  .mission-vision-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mission, .vision {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .team-members {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .member {
+    width: 90%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    padding: 10px;
+  }
+
+  .hero-section, .contact-cta {
+    padding: 20px 15px;
+  }
+}
