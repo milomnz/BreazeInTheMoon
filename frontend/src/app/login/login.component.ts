@@ -24,7 +24,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private LoginService: LoginService,
-    private Router : Router, // Asegúrate de importar Router
+    private Router : Router, 
   ) {
 
     // Inicializar campos del formulario

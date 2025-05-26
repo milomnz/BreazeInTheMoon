@@ -5,7 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { DateRangePickerComponent} from './date-range-picker/date-range-picker.component'
 import { StartPageComponent } from './start-page/start-page.component';
-
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'StartPage', pathMatch: 'full' },
@@ -14,5 +14,6 @@ export const routes: Routes = [
      { path: 'register', component: RegisterComponent },
      { path: 'navbar', component: NavbarComponent },
      { path: 'busqueda', component: BusquedaComponent},
-     {path: 'date-picker', component: DateRangePickerComponent }
+     {path: 'date-picker', component: DateRangePickerComponent },
+     {path: 'profile', component: ProfileComponent }
 ];

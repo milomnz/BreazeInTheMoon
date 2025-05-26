@@ -37,7 +37,7 @@ export class RegisterService {
         map((response: RegisterResponseModel) => {
 
           if (response.access_token) {
-            // localStorage.setItem('access_token', response.access_token);
+            localStorage.setItem('access_token', response.access_token);
             console.log('Usuario registrado exitosamente');
           }
           return response;

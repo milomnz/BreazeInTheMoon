@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Login, LoginResponse} from '../../models/login.model';
 import { map, Observable, catchError, throwError } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,12 @@ export class LoginService {
       'Content-Type': 'application/json'
     })
   };
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+
+
+  ) { }
 
   /**
    *  @param loginData Datos del formulario de inicio de sesión
@@ -26,7 +32,7 @@ export class LoginService {
     .pipe(
       map((response: LoginResponse) => {
         if (response.access_token) {
-          localStorage.setItem('access_token', response.access_token);
+          this.authService.loginSuccess(response.access_token);
           console.log('Usuario logueado exitosamente');
         }
         return response;
