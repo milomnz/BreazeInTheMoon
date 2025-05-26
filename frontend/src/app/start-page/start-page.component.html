@@ -9,16 +9,20 @@
             <img src="assets/images/cuenta.png" id="login-image" alt="Iniciar Sesión">
         </a>
 
-        <button *ngIf="isUserLoggedIn" type="button" class="btn btn-secondary profile-popover-btn"
-            data-bs-toggle="popover" data-bs-placement="right" data-bs-custom-class="custom-popover"
-            [attr.data-bs-title]="'Hola, ' + (userName || 'Usuario')" [attr.data-bs-content]="getPopoverContent()"
-            #profilePopoverBtn> <img src="assets/images/cuenta.png" id="login-image" alt="Mi Cuenta">
+        <button *ngIf="isUserLoggedIn" type="button" class="btn btn-secondary profile-popover-btn" #profilePopoverBtn>
+            <img src="assets/images/cuenta.png" id="login-image" alt="Mi Cuenta">
         </button>
+
     </section>
     <section class="inicial-text">
         <p>Descubre por qué nuestros hoteles son tú mejor opcion para tus proximas vacaciones.</p>
     </section>
     <p class="firma">- "Breaze In The Mooon"...</p>
+    <hr class="linea-separadora">
+    <p class="offer-text">No te pierdas la oportunidad de conocer nuestros hoteles</p>
+    <app-cards></app-cards>
+    <p class="offer-text">Lo que dicen nuestros huespedes...</p>
+    <app-review-start></app-review-start>
 </main>
 
 <router-outlet></router-outlet>

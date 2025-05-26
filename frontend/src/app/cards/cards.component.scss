@@ -1,0 +1,71 @@
+$color-dark-text: #504B38;
+$color-light-gray: #dadada;
+$color-white: #ffffff;
+$color-form-bg: #b9b28a3f;
+/* #dadada con transparencia */
+
+/* Variables de Fuente */
+$font-tinos: "Tinos", serif;
+
+/* Espaciado Básico */
+$spacing-sm: 10px;
+$spacing-md: 20px;
+$spacing-lg: 40px;
+
+.cards-section {
+    font-family: $font-tinos;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 60px; 
+    padding: 60px; 
+    margin-top: 50px; 
+    color: $color-dark-text;
+    width: 100%; 
+    max-width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
+
+}
+
+.card {
+    flex-basis: 288px; 
+    flex-grow: 1; 
+    max-width: 320px; 
+    margin-right: 0;
+
+    .card-img-top {
+        width: 100%;
+        height: auto; 
+    }
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: $color-dark-text;
+}
+    
+@media (max-width: 768px) {
+    .cards-section {
+        padding: 30px; 
+        gap: 30px; // Reduce el espacio entre tarjetas
+    }
+
+    .card {
+        flex-basis: calc(50% - 30px); // Dos columnas con espacio de 30px
+        max-width: unset; // Permite que las tarjetas ocupen más ancho si es necesario
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-section {
+        padding: 20px;
+        gap: 20px; 
+    }
+
+    .card {
+        flex-basis: 100%; 
+        max-width: unset; 
+    }
+}

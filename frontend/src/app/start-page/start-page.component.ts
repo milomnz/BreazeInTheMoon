@@ -1,15 +1,15 @@
-// src/app/start-page/start-page.component.ts
 import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // Importa Router y RouterModule
+import { Router, RouterModule } from '@angular/router'; 
 import { NavbarComponent } from '../navbar/navbar.component';
 import { BusquedaComponent } from '../busqueda/busqueda.component';
 import { DateRangePickerComponent } from '../date-range-picker/date-range-picker.component';
 import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../services/auth/auth.service'; // Asegúrate de que la ruta sea correcta
+import { AuthService } from '../services/auth/auth.service'; 
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common'; // Necesario para *ngIf
-
+import { CommonModule } from '@angular/common'; 
+import { CardsComponent } from '../cards/cards.component';
 import { Popover } from 'bootstrap';
+import { ReviewStartComponent } from '../review-start/review-start.component';
 
 @Component({
   selector: 'app-start-page',
@@ -19,7 +19,9 @@ import { Popover } from 'bootstrap';
     BusquedaComponent,
     DateRangePickerComponent,
     LoginComponent,
-    CommonModule
+    CommonModule,
+    CardsComponent,
+    ReviewStartComponent
   ],
   standalone: true,
   templateUrl: './start-page.component.html',
@@ -37,7 +39,7 @@ export class StartPageComponent implements OnInit, OnDestroy, AfterViewInit {
   // Instancia del popover de Bootstrap
   private popoverInstance: Popover | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {} // Inyecta Router
+  constructor(private authService: AuthService, private router: Router) { } // Inyecta Router
 
   ngOnInit(): void {
     // Suscribirse al estado de autenticación
@@ -54,7 +56,7 @@ export class StartPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Suscribirse a los datos del usuario para obtener el nombre
     this.userSubscription = this.authService.getCurrentUser().subscribe(user => {
-      this.userName = user ? user.nombre : null; // Asumiendo que 'nombre' está en el payload JWT
+      this.userName = user ? user.nombre : null; 
     });
   }
 
@@ -79,13 +81,15 @@ export class StartPageComponent implements OnInit, OnDestroy, AfterViewInit {
       const popoverElement = this.profilePopoverBtn.nativeElement;
 
       this.popoverInstance = new Popover(popoverElement, {
-        html: true, // Permite contenido HTML en el popover
+        html: true,
+        sanitize: false, // Asegúrate de que el contenido HTML se procese correctamente
         placement: 'left',
         customClass: 'custom-popover',
-        title: `Hola, ${this.userName || 'Usuario'}`, // Título dinámico
-        content: this.getPopoverContent(), // Contenido HTML dinámico
-        trigger: 'click' // El popover se activa al hacer clic
+        title: `Hola, ${this.userName || 'Usuario'}`,
+        content: this.getPopoverContent(),
+        trigger: 'click'
       });
+
 
       // Escuchar el evento 'shown.bs.popover' para adjuntar listeners a elementos dentro del popover
       popoverElement.addEventListener('shown.bs.popover', () => {
@@ -146,6 +150,6 @@ export class StartPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onLogout(): void {
     this.authService.logout();
-    this.router.navigate(['/']); // Redirigir a la página de inicio después del logout
+    this.router.navigate(['/StartPage']); // Redirigir a la página de inicio después del logout
   }
 }

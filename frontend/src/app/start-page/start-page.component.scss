@@ -82,3 +82,31 @@ $principal-font-color: #504B38;
   height: 40px;
   width: 40px;
 }
+
+.linea-separadora{
+  width: 85%;
+  height: 1px;
+  background-color: $principal-font-color;
+  margin: 20px 0;
+  display: absolute;
+  left: 5%;
+  right: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 110px;
+}
+
+.offer-text{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 65px;
+  font-family: $principal-font;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 50px;
+  color: $principal-font-color;
+}
