@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Hotel } from 'src/entities/hotel.entity';
 import { CreateHotelDto } from 'src/auth/interfaces/create-hotel.dto';
 import { UpdateHotelDto } from 'src/auth/interfaces/update-hotel.dto';
+import { Resenia } from 'src/entities/resenia.entity';
 
 @Injectable()
 export class HotelService {
@@ -18,22 +19,21 @@ export class HotelService {
         if (nombreExistente) {
             throw new ConflictException(`Ya existe un hotel con el nombre '${dto.nombre}'`);
         }
-
-        const telefonoExistente = await this.hotelRepository.findOne({ where: { telefono: dto.telefono } });
-        if (telefonoExistente) {
-            throw new ConflictException(`Ya existe un hotel con el teléfono '${dto.telefono}'`);
-        }
-
-        const hotel = this.hotelRepository.create({
-            ...dto,
-            administrador: { id: adminId },
-            calificacionPromedio: 5.0, // default
-        });
+        const hotel = this.hotelRepository.create({ ...dto, administrador: { id: adminId } });
         return this.hotelRepository.save(hotel);
     }
 
-    async update(id: number, dto: UpdateHotelDto): Promise<Hotel> {
-        const hotel = await this.hotelRepository.findOne({ where: { id } });
+    async update(id: number, dto: UpdateHotelDto, adminId?: number): Promise<Hotel> {
+        let hotel: Hotel | null;
+        if (adminId !== undefined) {
+            hotel = await this.hotelRepository.findOne({ where: { id }, relations: ['administrador'] });
+            if ('calificacionPromedio' in dto || 'fechaCreacion' in dto) {
+                throw new BadRequestException('No puedes modificar campos de solo lectura');
+            }
+        } else {
+            hotel = await this.hotelRepository.findOne({ where: { id } });
+        }
+
         if (!hotel) {
             throw new NotFoundException(`Hotel con id ${id} no encontrado`);
         }
@@ -51,7 +51,13 @@ export class HotelService {
                 throw new ConflictException(`Ya existe un hotel con el teléfono '${dto.telefono}'`);
             }
         }
+
         Object.assign(hotel, dto);
+
+        if (adminId !== undefined) {
+            hotel.administrador = { id: adminId } as any;
+        }
+
         return this.hotelRepository.save(hotel);
     }
 
@@ -96,12 +102,7 @@ export class HotelService {
         });
 
         return hoteles.map((hotel) => {
-            if (!hotel.resenias || hotel.resenias.length === 0) {
-                hotel.calificacionPromedio = 5.0;
-            } else {
-                const total = hotel.resenias.reduce((acc, r) => acc + r.calificacion, 0);
-                hotel.calificacionPromedio = parseFloat((total / hotel.resenias.length).toFixed(2));
-            }
+            hotel.calificacionPromedio = this.calcularPromedio(hotel.resenias);
             return hotel;
         });
     }
@@ -122,5 +123,11 @@ export class HotelService {
         }
 
         await this.hotelRepository.save(hotel);
+    }
+
+    private calcularPromedio(resenias: Resenia[] | null): number {
+        if (!resenias || resenias.length === 0) return 5.0;
+        const total = resenias.reduce((acc, r) => acc + r.calificacion, 0);
+        return parseFloat((total / resenias.length).toFixed(2));
     }
 }

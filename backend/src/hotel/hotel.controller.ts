@@ -9,6 +9,7 @@ import {
     UseGuards,
     Request as Req,
     NotFoundException,
+    Param, // Importa Param para obtener IDs de la URL
 } from '@nestjs/common';
 import { HotelService } from './hotel.service';
 import { CreateHotelDto } from 'src/auth/interfaces/create-hotel.dto';
@@ -17,7 +18,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
 import { RolUsuario } from 'src/constants/rol-usuario.enum';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger'; // Importa ApiParam
 
 @ApiTags('Hoteles')
 @ApiBearerAuth()
@@ -26,13 +27,12 @@ import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiBody } from '@nes
 export class HotelController {
     constructor(private readonly hotelService: HotelService) { }
 
-    @Post()
-    @Roles(RolUsuario.ADMIN)
-    @ApiOperation({ summary: 'Crear un nuevo hotel (solo administradores)' })
-    @ApiBody({ type: CreateHotelDto })
-    @ApiResponse({ status: 201, description: 'Hotel creado correctamente.' })
-    create(@Req() req, @Body() dto: CreateHotelDto) {
-        return this.hotelService.create(dto, req.user.userId);
+    @Get()
+    @Roles(RolUsuario.ADMIN, RolUsuario.CLIENTE)
+    @ApiOperation({ summary: 'Obtener la lista de todos los hoteles con su calificación promedio' })
+    @ApiResponse({ status: 200, description: 'Lista de hoteles retornada correctamente.' })
+    async findAllHotelsWithPromedios() {
+        return this.hotelService.findAllWithPromedios();
     }
 
     @Get('me')

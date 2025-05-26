@@ -14,11 +14,17 @@ export class UsuarioService {
     private readonly usuarioRepository: Repository<Usuario>,
   ) { }
 
+<<<<<<< HEAD
   async create(dto: CreateUsuarioDto): Promise<Usuario> {
     const nuevoUsuario = this.usuarioRepository.create(dto);
     nuevoUsuario.contrasenaEncriptada = dto.contrasena; 
     
     return this.usuarioRepository.save(nuevoUsuario);
+=======
+  async create(data: Partial<Usuario>): Promise<Usuario> {
+    const nuevoUsuario = this.usuarioRepository.create(data);
+    return await this.usuarioRepository.save(nuevoUsuario);
+>>>>>>> 8ed68d0 (Ultimísimo commit.)
   }
 
   async findAll(): Promise<Usuario[]> {

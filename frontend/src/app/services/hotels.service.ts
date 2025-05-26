@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { Hotel} from '../models/hotel.model';
+import { Hotel } from '../models/hotel.model';
+import { HotelFull } from '../models/hotel-full.model';
 
 
 @Injectable({
@@ -18,5 +19,12 @@ export class HotelsService {
           return throwError(() => error);
         })
       );
+  }
+
+  getMiHotel(): Observable<HotelFull> {
+    const token = localStorage.getItem('token');
+    console.log('Token en getMiHotel:', token);
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<HotelFull>(`${this.apiUrl}/me`, { headers });
   }
 }
