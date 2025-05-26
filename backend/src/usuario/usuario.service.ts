@@ -20,13 +20,6 @@ export class UsuarioService {
     return await this.usuarioRepository.save(nuevoUsuario);
   }
 
-  /* async create(dto: CreateUsuarioDto): Promise<Usuario> {
-    const nuevoUsuario = this.usuarioRepository.create(dto);
-    const saltRounds = 10;
-    nuevoUsuario.contrasenaEncriptada = await bcrypt.hash(dto.contrasenaEncriptada, saltRounds);
-    return this.usuarioRepository.save(nuevoUsuario);
-  } */
-
   async findAll(): Promise<Usuario[]> {
     return this.usuarioRepository.find();
   }

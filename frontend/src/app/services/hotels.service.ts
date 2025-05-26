@@ -7,7 +7,6 @@ import { HotelFull } from '../models/hotel-full.model';
   providedIn: 'root'
 })
 export class HotelService {
-  private baseUrl = 'http://localhost:3000/hoteles';
   private apiUrl = 'http://localhost:3000/hoteles';
 
   constructor(private http: HttpClient) { }
@@ -20,6 +19,6 @@ export class HotelService {
     const token = localStorage.getItem('token');
     console.log('Token en getMiHotel:', token);
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.get<HotelFull>(`${this.baseUrl}/me`, { headers });
+    return this.http.get<HotelFull>(`${this.apiUrl}/me`, { headers });
   }
 }

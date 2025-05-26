@@ -15,10 +15,9 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) {
       return true;
     }
-
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-
+    
     if (!user) {
       console.warn('No hay usuario en la request, ¿falta JwtAuthGuard?');
       return false;

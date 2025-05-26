@@ -26,14 +26,14 @@ export class UsuarioController {
         return this.usuarioService.create(dto);
     }
 
-    @Put('actualizar')
+    @Put(':id')
     @Roles(RolUsuario.ADMIN)
     @ApiOperation({ summary: 'Actualizar datos de un usuario (administrador)' })
     @ApiBody({ type: UpdateUsuarioDto })
     @ApiResponse({ status: 200, description: 'Usuario actualizado correctamente' })
-    update(@Req() req: RequestWithUser, @Body() dto: UpdateUsuarioDto) {
-        return this.usuarioService.update(req.user.userId, dto);
-    }
+    updateById(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateUsuarioDto) {
+    return this.usuarioService.update(id, dto);
+}
 
     @Put('perfil')
     @Roles(RolUsuario.CLIENTE)
