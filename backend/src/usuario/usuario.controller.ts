@@ -15,7 +15,7 @@ import { ApiBearerAuth, ApiTags, ApiOperation, ApiBody, ApiParam, ApiResponse } 
 @ApiBearerAuth()
 @Controller('usuarios')
 export class UsuarioController {
-    constructor(private readonly usuarioService: UsuarioService) {}
+    constructor(private readonly usuarioService: UsuarioService) { }
 
     @Post()
     @Roles(RolUsuario.ADMIN)
@@ -41,7 +41,9 @@ export class UsuarioController {
     @ApiBody({ type: UpdateUsuarioDto })
     @ApiResponse({ status: 200, description: 'Perfil actualizado correctamente' })
     updateProfile(@Req() req: RequestWithUser, @Body() dto: UpdateUsuarioDto) {
-        return this.usuarioService.update(req.user.userId, dto);
+        const usuario = req.user; // ya tiene acceso completo al usuario
+        console.log(`Usuario autenticado: ${usuario.nombre} (${usuario.correo})`);
+        return this.usuarioService.update(usuario.userId, dto);
     }
 
     @Delete(':id')

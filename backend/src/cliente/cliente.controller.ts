@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { 
-  Controller, Get, Put, Param, Body, UseGuards, Request as Req, Delete, NotFoundException 
+  Controller, Get, Put, Param, Body, UseGuards, Request as Req, NotFoundException 
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -39,14 +39,14 @@ export class ClienteController {
     return cliente;
   }
 
-  @Put(':id')
+  /* @Put(':id')
   @Roles(RolUsuario.ADMIN)
   @ApiOperation({ summary: 'Actualizar cliente por ID (solo admin)' })
   @ApiParam({ name: 'id', type: Number, description: 'ID del cliente a actualizar' })
   @ApiResponse({ status: 200, description: 'Cliente actualizado correctamente' })
   update(@Param('id') id: number, @Body() dto: UpdateClienteDto) {
     return this.clienteService.update(id, dto);
-  }
+  } */
 
   @Put('me')
   @Roles(RolUsuario.CLIENTE)
@@ -60,7 +60,7 @@ export class ClienteController {
     return { message: 'Perfil actualizado correctamente' };
   }
 
-  @Delete(':id')
+  /* @Delete(':id')
   @Roles(RolUsuario.ADMIN)
   @ApiOperation({ summary: 'Eliminar cliente por ID (solo admin)' })
   @ApiParam({ name: 'id', type: Number, description: 'ID del cliente a eliminar' })
@@ -75,5 +75,5 @@ export class ClienteController {
   @ApiResponse({ status: 200, description: 'Lista de clientes', type: [Cliente] })
   findAll() {
     return this.clienteService.findAll();
-  }
+  } */
 }

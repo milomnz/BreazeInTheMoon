@@ -1,12 +1,15 @@
+// app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { DateRangePickerComponent} from './date-range-picker/date-range-picker.component'
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterModule, NavbarComponent, BusquedaComponent, DateRangePickerComponent],  // Importa NavbarComponent aquí
+  template: `<router-outlet></router-outlet>`,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'frontend';
-}
+export class AppComponent { }

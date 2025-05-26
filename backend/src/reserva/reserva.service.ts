@@ -5,9 +5,12 @@ import { Repository } from 'typeorm';
 import { Reserva } from 'src/entities/reserva.entity';
 import { CreateReservaDto } from 'src/auth/interfaces/create-reserva.dto';
 import { UpdateReservaDto } from 'src/auth/interfaces/update-reserva.dto';
+import { NotificacionService } from 'src/notificacion/notificacion.service';
+import { TipoNotificacion } from 'src/constants/tipo-notificacion.enum';
 import { Cliente } from 'src/entities/cliente.entity';
 import { Habitacion } from 'src/entities/habitacion.entity';
 import { EstadoReserva } from 'src/constants/estado-reserva.enum';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class ReservaService {
@@ -20,13 +23,15 @@ export class ReservaService {
 
     @InjectRepository(Habitacion)
     private habitacionRepository: Repository<Habitacion>,
+    private readonly notificacionService: NotificacionService,
+    private readonly emailService: EmailService,
   ) { }
 
   private async validarDisponibilidad(
     habitacionId: number,
     fechaInicio: Date,
     fechaFin: Date,
-    ignorarReservaId?: number, // <- cuarto parámetro opcional
+    ignorarReservaId?: number,
   ): Promise<void> {
     const reservasExistentes = await this.reservaRepository.find({
       where: {
@@ -35,18 +40,13 @@ export class ReservaService {
       },
       relations: ['habitacion'],
     });
-
     const conflicto = reservasExistentes.some((reserva) => {
       if (ignorarReservaId && reserva.id === ignorarReservaId) {
-        return false; // Ignorar la misma reserva
+        return false;
       }
-
       const inicioExistente = new Date(reserva.fechaInicio);
       const finExistente = new Date(reserva.fechaFin);
-
-      return (
-        (fechaInicio < finExistente && fechaFin > inicioExistente)
-      );
+      return fechaInicio < finExistente && fechaFin > inicioExistente;
     });
 
     if (conflicto) {
@@ -68,22 +68,16 @@ export class ReservaService {
     if (!clienteEntidad || !habitacionEntidad) {
       throw new NotFoundException('Cliente o habitación no encontrados');
     }
-
     const fechaInicio = new Date(dto.fechaInicio);
     const fechaFin = new Date(dto.fechaFin);
-
     const diffMs = fechaFin.getTime() - fechaInicio.getTime();
     const numeroNoches = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
 
     if (numeroNoches <= 0) {
       throw new BadRequestException('La fecha de fin debe ser posterior a la fecha de inicio');
     }
-
-    // Validar disponibilidad en creación (incluso si queda como PENDIENTE)
     await this.validarDisponibilidad(habitacionEntidad.id, fechaInicio, fechaFin);
-
     const costoTotal = habitacionEntidad.precio * numeroNoches;
-
     const reserva = this.reservaRepository.create({
       cliente: clienteEntidad,
       habitacion: habitacionEntidad,
@@ -94,20 +88,25 @@ export class ReservaService {
       fechaCreacion: new Date(),
       estado: EstadoReserva.PENDIENTE,
     });
-    return this.reservaRepository.save(reserva);
+    const reservaGuardada = await this.reservaRepository.save(reserva);
+    await this.notificacionService.crearNotificacion({
+      usuario: clienteEntidad,
+      tipo: TipoNotificacion.CONFIRMACION_RESERVA,
+      mensaje: 'Tu solicitud de reserva ha sido registrada correctamente.',
+    });
+    return reservaGuardada;
   }
 
   async update(id: number, dto: UpdateReservaDto) {
     const reserva = await this.reservaRepository.findOne({
       where: { id },
-      relations: ['habitacion'],
+      relations: ['habitacion', 'cliente'],
     });
 
     if (!reserva) {
       throw new NotFoundException(`Reserva con id ${id} no encontrada`);
     }
 
-    // Validación de cambios de estado
     if (dto.estado) {
       const estadoActual = reserva.estado;
       const nuevoEstado = dto.estado;
@@ -121,7 +120,6 @@ export class ReservaService {
       }
 
       if (nuevoEstado === EstadoReserva.CONFIRMADA) {
-        // Validar disponibilidad solo al confirmar
         try {
           await this.validarDisponibilidad(
             reserva.habitacion.id,
@@ -133,6 +131,13 @@ export class ReservaService {
           if (estadoActual === EstadoReserva.PENDIENTE) {
             reserva.estado = EstadoReserva.RECHAZADA;
             await this.reservaRepository.save(reserva);
+
+            // Notificación por correo (rechazo)
+            await this.emailService.enviarCorreoRechazo(
+              reserva.cliente.correo,
+              reserva.cliente.nombre
+            );
+
             throw new BadRequestException('La habitación no está disponible, la reserva pendiente fue rechazada');
           } else {
             throw new BadRequestException('La habitación no está disponible para la confirmación');
@@ -141,7 +146,15 @@ export class ReservaService {
       }
     }
     Object.assign(reserva, dto);
-    return this.reservaRepository.save(reserva);
+    const reservaActualizada = await this.reservaRepository.save(reserva);
+
+    if (dto.estado === EstadoReserva.CONFIRMADA) {
+      await this.emailService.enviarCorreoConfirmacion(
+        reserva.cliente.correo,
+        reserva.cliente.nombre
+      );
+    }
+    return reservaActualizada;
   }
 
   findAll() {

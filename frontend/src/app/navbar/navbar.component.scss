@@ -1,0 +1,59 @@
+$principal-font: "Tinos", serif;
+$principal-font-color: #504B38;
+
+#navbar {
+  font-family: $principal-font;
+  font-weight: 400;
+  font-style: italic;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.5s;
+  z-index: 1000;
+  background-color: transparent !important;
+}
+
+#navbar  .navbar-brand {
+  color: #ffffff !important;
+}
+
+/* Cuando el navbar tiene la clase .scrolled */
+#navbar.scrolled,
+#navbar.navbar.scrolled,
+#navbar.bg-body-tertiary.scrolled {
+  background-color: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  padding: 15px 40px !important;
+}
+
+/* Menú dentro del navbar */
+#navbar #menu {
+  display: flex;
+  gap: 30px;
+}
+
+/* Estilo de los links */
+#navbar #menu .nav-link {
+  color: #ffffff ;
+  transition: color 0.3s ease;
+}
+
+#navbar #menu .nav-link:hover {
+  color: #000000 !important;
+}
+
+
+
+/* Estilo cuando el navbar está scrolleado */
+#navbar.scrolled .navbar-brand {
+  color: $principal-font-color !important;
+}
+
+#navbar.scrolled .nav-link {
+  color: $principal-font-color !important;
+}

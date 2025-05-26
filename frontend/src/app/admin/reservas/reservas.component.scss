@@ -1,0 +1,27 @@
+@use '../../styles/variables.scss' as *; // Solo si tus variables están ahí
+
+.reserva-card {
+  font-family: "Tinos", serif;
+  background-color: $color-form-bg;
+  color: $color-dark-text;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.card-subtitle {
+  font-size: 18px;
+  color: gray;
+}

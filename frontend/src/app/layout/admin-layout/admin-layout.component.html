@@ -1,0 +1,21 @@
+<div class="admin-layout">
+    <nav class="sidebar">
+        <ul>
+            <li><button class="nav-link" routerLink="/admin">CERRAR SESIÓN</button></li>
+            <li><a routerLink="/admin/resenias">Reseñas</a></li>
+            <li><a routerLink="/admin/hoteles">Hoteles</a></li>
+            <li><a routerLink="/admin/reservas">Reservas</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        <header class="header">
+            <h2>Panel de Administración</h2>
+            <!-- Aquí puedes poner logout, nombre del usuario, etc. -->
+        </header>
+
+        <section class="content">
+            <router-outlet></router-outlet>
+        </section>
+    </div>
+</div>

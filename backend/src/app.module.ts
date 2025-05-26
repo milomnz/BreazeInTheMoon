@@ -17,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsuarioController } from './usuario/usuario.controller';
 import { ReseniaController } from './resenia/resenia.controller';
 import { NotificacionController } from './notificacion/notificacion.controller';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -32,6 +33,20 @@ import { NotificacionController } from './notificacion/notificacion.controller';
       database: process.env.DB_NAME || 'reserva-hoteles',
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com', // o el que vayas a usar
+        port: 587,
+        secure: false,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
+        },
+      },
+      defaults: {
+        from: '"BreazeInTheMoon" <no-reply@breaze.com>',
+      },
     }),
     HotelModule,
     UsuarioModule,

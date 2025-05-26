@@ -37,7 +37,7 @@ export class Usuario {
     enum: RolUsuario,
     default: RolUsuario.CLIENTE,
   })
-  @ApiProperty({ enum: RolUsuario, example: RolUsuario.CLIENTE, description: 'Rol asignado al usuario' })
+  @ApiProperty({ enum: RolUsuario, example: RolUsuario.CLIENTE, description: 'Rol asignado al usuario registrado' })
   rol: RolUsuario;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

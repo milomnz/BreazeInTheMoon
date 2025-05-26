@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+$primary-color : #504B38;
+$primary-font: "Tinos", serif;
+
+/*
+Estos son los estilos definidos para el componente date-picker. Provenientes de Angular material
+
+Se deben aplicar aca desde el estilo global ya que el estilo de estos componentes funciona a traves de tokenizacion
+para ver mas.
+-> https://material.angular.dev/components/datepicker/styling
+
+
+*/
+:root {
+  @include mat.datepicker-overrides((
+    toggle-icon-color : $primary-color,
+    calendar-text-font : $primary-font,
+    calendar-period-button-text-size: 10px,
+    calendar-text-size : 20px,
+    calendar-container-background-color : white,
+    calendar-container-shape : white,
+    calendar-container-touch-shape : white,
+    calendar-date-in-range-state-background-color : gray,
+    calendar-date-selected-state-text-color: black,
+    calendar-date-selected-state-background-color: $primary-color ,
+    ));
+}

@@ -6,7 +6,7 @@ import { RolUsuario } from 'src/constants/rol-usuario.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector) { }
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.getAllAndOverride<RolUsuario[]>(ROLES_KEY, [
       context.getHandler(),
@@ -15,7 +15,14 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) {
       return true;
     }
-    const { user } = context.switchToHttp().getRequest();
-    return requiredRoles.some(rol => user.rol?.includes(rol));
+
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+
+    if (!user) {
+      console.warn('No hay usuario en la request, ¿falta JwtAuthGuard?');
+      return false;
+    }
+    return requiredRoles.includes(user.rol); // Aquí va la validación correcta
   }
 }

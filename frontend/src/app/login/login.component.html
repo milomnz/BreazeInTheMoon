@@ -1,0 +1,21 @@
+<div class="login">
+    <h1 class="title">Breaze In The Moon</h1>
+    <div class="login-container">
+        <p>Iniciar Sesión</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group"> 
+                <label for="correo">Correo Electronico:</label>
+                <!-- Cambié id, name y formControlName de username a correo -->
+                <input type="text" id="correo" name="correo" formControlName="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" formControlName="password" required>
+            </div>
+            <button type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+            <div class="form-group">
+                <label>¿No tienes cuenta? <a routerLink="/register">Registrarse</a></label>
+            </div>
+        </form>
+    </div>
+</div>

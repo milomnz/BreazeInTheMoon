@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { CreateUsuarioDto } from './interfaces/create-usuario.dto';
 import { RolUsuario } from 'src/constants/rol-usuario.enum';
+//import { Usuario } from 'src/entities/usuario.entity';
 
 @Injectable()
 export class AuthService {
@@ -16,24 +17,37 @@ export class AuthService {
   ) { }
   async login(loginDto: LoginDto) {
     const { correo, password } = loginDto;
+    console.log('Intentando login con:', correo);
+
     const user = await this.usersService.findByCorreo(correo);
     if (!user) {
+      console.warn('Usuario no encontrado:', correo);
       throw new UnauthorizedException('Credenciales inválidas');
     }
+
     const passwordMatch = await bcrypt.compare(password, user.contrasenaEncriptada);
+    console.log('¿Password coincide?', passwordMatch);
+
     if (!passwordMatch) {
+      console.warn('Password incorrecto para usuario:', correo);
       throw new UnauthorizedException('Credenciales inválidas');
     }
+
     const payload: JwtPayload = {
       userId: user.id,
       correo: user.correo,
       rol: user.rol,
     };
+
+    console.log('Payload JWT generado:', payload);
+
     const token = this.jwtService.sign(payload);
-    return { access_token: token };
+    console.log('Token generado:', token);
+
+    return { access_token: token, rol: user.rol };
   }
 
-  async loginConDatos(loginDto: LoginDto): Promise<{
+  /* async loginConDatos(loginDto: LoginDto): Promise<{
     accessToken: string;
     usuario: {
       id: number;
@@ -66,22 +80,24 @@ export class AuthService {
         rol: user.rol,
       },
     };
-  }
+  } */
 
   async register(createUsuarioDto: CreateUsuarioDto) {
-    const { correo, contrasenaEncriptada } = createUsuarioDto;
-
+    const { correo, contrasenaEncriptada, nombre, apellido, telefono } = createUsuarioDto;
     const existingUser = await this.usersService.findByCorreo(correo);
+
     if (existingUser) {
       throw new UnauthorizedException('El correo ya está en uso');
     }
-
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(contrasenaEncriptada, saltOrRounds);
-
     const usuario = await this.usersService.create({
-      ...createUsuarioDto,
+      nombre,
+      apellido,
+      telefono,
+      correo,
       contrasenaEncriptada: hashedPassword,
+      rol: RolUsuario.CLIENTE, // <--- Forzado internamente
     });
 
     const payload: JwtPayload = {
@@ -89,7 +105,6 @@ export class AuthService {
       correo: usuario.correo,
       rol: usuario.rol,
     };
-
     const token = this.jwtService.sign(payload);
     return { access_token: token };
   }

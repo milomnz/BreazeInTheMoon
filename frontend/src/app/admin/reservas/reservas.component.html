@@ -1,0 +1,6 @@
+<h3>Listado de Reservas</h3>
+<ul>
+  <li *ngFor="let reserva of reservas">
+    Reserva #{{ reserva.id }} - {{ reserva.fecha }} - {{ reserva.estado }}
+  </li>
+</ul>

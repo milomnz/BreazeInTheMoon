@@ -1,0 +1,106 @@
+@use '../../styles/variables.scss' as variables;
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  font-family: variables.$font-tinos;
+  color: variables.$color-dark-text;
+  background-color: rgba(255, 255, 255, 0.075);
+}
+
+/* Barra lateral */
+.sidebar {
+  width: 240px;
+  background-color: variables.$color-form-bg;
+  padding: variables.$spacing-md;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: variables.$spacing-md;
+}
+
+.sidebar a {
+  display: block;
+  padding: variables.$spacing-sm variables.$spacing-md;
+  color: variables.$color-dark-text;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background-color: rgba(80, 75, 56, 0.2); // color oscuro semitransparente
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: variables.$spacing-lg;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: variables.$spacing-md;
+  margin-bottom: variables.$spacing-md;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header h2 {
+  font-size: 2rem;
+  font-style: italic;
+  color: variables.$color-dark-text;
+}
+
+/* Contenido dinámico */
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    gap: variables.$spacing-md;
+  }
+
+  .sidebar li {
+    margin-bottom: 0;
+  }
+
+  .main-content {
+    padding: variables.$spacing-md;
+  }
+}
